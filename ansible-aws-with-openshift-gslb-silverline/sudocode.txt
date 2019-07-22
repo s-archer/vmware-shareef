@@ -1,0 +1,8 @@
+- popultae variables:
+  - vmware environment (DC, cluster etc.)
+  - networks/VLANs
+  - bigip hostname
+  - bigip provisioning
+- get static IPs from IPAM
+- deploy OVA template, and wait for MGMT IP
+- 

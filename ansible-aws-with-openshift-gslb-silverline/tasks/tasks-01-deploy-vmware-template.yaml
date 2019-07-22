@@ -1,0 +1,59 @@
+---
+#------------------------------------------------------------------------------
+# Start tasks
+#------------------------------------------------------------------------------
+
+- name: Gather vswitch facts about all ESXi Host in given Cluster
+  vmware_vswitch_facts:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vcenter_user }}'
+    password: '{{ vcenter_pass }}'
+    cluster_name: '{{ vcenter_cluster }}'
+    #delegate_to: localhost
+    validate_certs: no
+  register: all_hosts_vswitch_facts
+
+
+- name: DEBUG!
+  debug:
+    msg: "{{ all_hosts_vswitch_facts }}"
+
+
+#- name: Gather facts about all ESXi Host in given Cluster
+#  vmware_host_facts:
+#    hostname: '{{ vcenter_hostname }}'
+#    username: '{{ vcenter_user }}'
+#    password: '{{ vcenter_pass }}'
+#    validate_certs: no
+#  register: all_hosts_facts
+
+
+#- name: DEBUG!
+#  debug:
+#    msg: "{{ all_hosts_facts }}"
+
+
+- name: DEPLOY VMWARE OVF
+  vmware_deploy_ovf:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vcenter_user }}'
+    password: '{{ vcenter_pass }}'
+    #datacenter: '{{ vcenter_dc }}'
+    #cluster: '{{ vcenter_cluster }}'
+    datastore: '{{ vcenter_datastore }}'
+    #name: '{{ stack_name }}'
+    networks: "{u'Management':u'VLAN 25'}"
+    validate_certs: no
+    ovf: '{{ vcenter_ovf }}'
+    wait_for_ip_address: true
+  delegate_to: localhost
+  register: deploy_ovf
+
+- name:  DEBUG OVF RESULT
+  debug:
+    msg:  "{{ deploy_ovf }}"
+
+#------------------------------------------------------------------------------
+# End tasks
+#------------------------------------------------------------------------------
+...

@@ -1,0 +1,6 @@
+vcenter_hostname: "esxi.ps.emealab.f5net.com"
+vcenter_dc:
+vcenter_cluster: "esxi.ps.emealab.f5net.com"
+vcenter_datastore: "local2"
+#vcenter_datastore: "datastore1"
+vcenter_ovf: "/Users/archer/Downloads/BIGIP-14.1.0.1-0.0.7.ALL-scsi.ova"
